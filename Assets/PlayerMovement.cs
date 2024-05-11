@@ -2,56 +2,90 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Movement Settings")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _movementSpeed = 5.0f;
     [SerializeField] private float _rotationSpeed = 100.0f;
-    [SerializeField] private Vector3 _movementDirection;
-
-
 
     void Update()
     {
-        HandleInput();
+        PlayerController();
     }
 
-    void FixedUpdate()
+    private void PlayerController()
     {
-        HandleInput();
+        HandleVerticalMovement();
+        HandleHorizontalMovement();
+        HandleRotationMovement();
     }
 
-    private void HandleInput()
+    private void HandleVerticalMovement()
     {
-        HandleMovementInput();
-        HandleRotationInput();
+        if (Input.GetKey(KeyCode.W))
+        {
+            MoveForward();
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            MoveBackward();
+        }
     }
 
-    private void HandleMovementInput()
+    private void HandleHorizontalMovement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        _movementDirection = new Vector3(horizontalInput, 0.0f, verticalInput).normalized;
+        if (Input.GetKey(KeyCode.A))
+        {
+            MoveLeft();
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            MoveRight();
+        }
     }
 
-    private void HandleMovement(Vector3 direction)
-    {
-        Vector3 movement = direction * _movementSpeed * Time.fixedDeltaTime;
-        _rigidbody.MovePosition(_rigidbody.position + movement);
-    }
-
-    private void HandleRotationInput()
+    private void HandleRotationMovement()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            RotatePlayer(-_rotationSpeed * Time.deltaTime);
+            RotateLeft();
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            RotatePlayer(_rotationSpeed * Time.deltaTime);
+            RotateRight();
         }
     }
 
-    private void RotatePlayer(float rotationAmount)
+    private void MoveForward()
     {
-        transform.Rotate(Vector3.up, rotationAmount);
+        Vector3 movement = transform.forward * _movementSpeed * Time.fixedDeltaTime;
+        _rigidbody.MovePosition(_rigidbody.position + movement);
+    }
+
+    private void MoveBackward()
+    {
+        Vector3 movement = -transform.forward * _movementSpeed * Time.fixedDeltaTime;
+        _rigidbody.MovePosition(_rigidbody.position + movement);
+    }
+
+    private void MoveLeft()
+    {
+        Vector3 movement = -transform.right * _movementSpeed * Time.fixedDeltaTime;
+        _rigidbody.MovePosition(_rigidbody.position + movement);
+    }
+
+    private void MoveRight()
+    {
+        Vector3 movement = transform.right * _movementSpeed * Time.fixedDeltaTime;
+        _rigidbody.MovePosition(_rigidbody.position + movement);
+    }
+
+    private void RotateLeft()
+    {
+        transform.Rotate(Vector3.up, -_rotationSpeed * Time.deltaTime);
+    }
+
+    private void RotateRight()
+    {
+        transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
     }
 }
