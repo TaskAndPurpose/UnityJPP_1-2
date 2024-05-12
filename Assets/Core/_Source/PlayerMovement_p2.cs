@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement_2 : MonoBehaviour
 {
     [Header("Player Movement Settings")]
     [SerializeField] private Rigidbody _rigidbody;
@@ -21,11 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleVerticalMovement()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.Keypad8))
         {
             MoveForward();
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.Keypad2))
         {
             MoveBackward();
         }
@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.Keypad4))
         {
             MoveLeft();
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.Keypad6))
         {
             MoveRight();
         }
@@ -45,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRotationMovement()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Keypad7))
         {
             RotateLeft();
         }
-        else if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(KeyCode.Keypad9))
         {
             RotateRight();
         }
